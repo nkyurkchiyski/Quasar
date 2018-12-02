@@ -1,0 +1,72 @@
+﻿@model ICollection<Quasar.Web.Models.Orders.OrderViewModel>
+
+<table class="table mx-auto table-hover">
+    <thead>
+        <tr class="row">
+            <th class="col-md-1">#</th>
+            <th class="col-md-2">Order ID</th>
+            <th class="col-md-2">Order Status</th>
+            <th class="col-md-1">Ordered On</th>
+            <th class="col-md-1">Delivered On</th>
+            <th class="col-md-2">Total Price</th>
+            <th class="col-md-3">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var index = 1;
+            foreach (var item in Model)
+            {
+                <tr class="row">
+                    <td class="col-md-1">@(index++)</td>
+                    <td class="col-md-2">@item.Id</td>
+                    <td class="col-md-2">@item.OrderStatus</td>
+                    @if (@item.OrderedOn != null)
+                    {
+                        <td class="col-md-1">@item.OrderedOn</td>
+                    }
+                    else
+                    {
+                        <td class="col-md-1">N/A</td>
+                    }
+
+                    @if (@item.DeliveredOn != null)
+                    {
+                        <td class="col-md-1">@item.DeliveredOn</td>
+                    }
+                    else
+                    {
+                        <td class="col-md-1">N/A</td>
+                    }
+                    <td class="col-md-2">$@item.TotalPrice</td>
+                    <td class="col-md-3">
+                        <div class="button-holder d-flex">
+                            <div>
+                                @{
+                                    switch (item.OrderStatus)
+                                    {
+                                        case "Delivered":
+                                            <a asp-controller="Orders" asp-action="Acquire" asp-route-id="@item.Id" class="btn btn-success">Acquire</a>
+                                            break;
+                                        case "AwaitingUser":
+                                            <a asp-controller="Orders" asp-action="Order" asp-route-id="@item.Id" class="btn btn-success">Order</a>
+                                            break;
+                                        case "Acquired":
+                                        case "Pending":
+                                        case "Shipped":
+                                            <button class="btn btn-default" disabled>@item.OrderStatus</button>
+                                            break;
+
+                                    }
+
+                                }
+                                <a asp-controller="Orders" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

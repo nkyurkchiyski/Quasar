@@ -1,0 +1,12 @@
+﻿@{
+    @model Quasar.Web.Models.Orders.OrderViewModel
+    ViewData["Title"] = $"Details Order";
+}
+
+<h1 class="text-center">Your Order From: @(!Model.OrderedOn.HasValue ? "N/A" : Model.OrderedOn.Value.ToString())</h1>
+<h4 class="text-center">Order Id: @Model.Id</h4>
+<h3 class="col-md-11">Products:</h3>
+<partial name="~/Views/Shared/_DetailsOrderPartial.cshtml" model="Model" />
+<hr />
+<h3 class="text-right">Total Price: $@Model.TotalPrice</h3>
+

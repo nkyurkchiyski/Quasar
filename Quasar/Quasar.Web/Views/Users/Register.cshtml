@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+@model Quasar.Web.Models.Users.RegisterUserViewModel
+
+<h1 class="text-center">Register</h1>
+<form class="mx-auto text-center" method="post" asp-controller="Users" asp-action="Register">
+    <div>
+        <h4 class="text-left">Personal Details</h4>
+        <hr />
+        <div class="row">
+            <div class="col form-group">
+                <label asp-for="FirstName">First name</label>
+                <input asp-for="FirstName" class="form-control" placeholder="First Name...">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="col form-group">
+                <label asp-for="LastName">Last name</label>
+                <input asp-for="LastName" class="form-control" placeholder="Last Name...">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col form-group">
+                <label asp-for="Username">Username</label>
+                <input required asp-for="Username" class="form-control" placeholder="Username...">
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="col form-group">
+                <label asp-for="Email">Email</label>
+                <input required asp-for="Email" class="form-control" placeholder="Email...">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col form-group">
+                <label asp-for="Password">Password</label>
+                <input required asp-for="Password" class="form-control" placeholder="Password...">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="col form-group">
+                <label asp-for="ConfirmPassword">Confirm Password</label>
+                <input required asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password...">
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h4 class="text-left">Address Information</h4>
+        <hr />
+        <div class="row">
+            <div class="col form-group">
+                <label asp-for="Country">Country</label>
+                <input required asp-for="Country" class="form-control" placeholder="Country...">
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="col form-group">
+                <label asp-for="City">City</label>
+                <input required asp-for="City" class="form-control" placeholder="City...">
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col form-group">
+                <label asp-for="Street">Street</label>
+                <input required asp-for="Street" class="form-control" placeholder="Street...">
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+            <div class="col form-group">
+                <label asp-for="PostCode">Postcode</label>
+                <input required asp-for="PostCode" class="form-control" placeholder="Postcode...">
+                <span asp-validation-for="PostCode" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="button-holder d-flex justify-content-center my-5">
+        <button type="submit" class="btn btn-primary">Register</button>
+    </div>
+</form>

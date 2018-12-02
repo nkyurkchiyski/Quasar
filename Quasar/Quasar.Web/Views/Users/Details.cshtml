@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Profile Details";
+}
+
+@model Quasar.Web.Models.Users.DetailsUserViewModel
+
+<h1 class="text-center">@Model.UserName</h1>
+
+
+<div class="container my-5" style="width:100%;">
+    <ul class="nav nav-tabs">
+        <li class="active"><a class="text-quasar" data-toggle="tab" href="#menu1">Personal Information</a></li>
+        <li><a class="text-quasar" data-toggle="tab" href="#menu2">Wishlist</a></li>
+        <li><a class="text-quasar" data-toggle="tab" href="#menu3">Orders</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="menu1" class="tab-pane fade in active">
+            <div>
+                <div class="row">
+                    <div class="col">
+                        <div>
+                            <h4 class="text-left">Personal Details</h4>
+                            <hr />
+                            <h5>First name: <span class="text-uppercase font-italic">@Model.FirstName</span></h5>
+                            <h5>Last name: <span class="text-uppercase font-italic">@Model.LastName</span></h5>
+                            <h5>Email: <span class="text-uppercase font-italic">@Model.Email</span></h5>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div>
+                            <h4 class="text-left">Address Information</h4>
+                            <hr />
+                            <h5>Country: <span class="text-uppercase font-italic">@Model.Address.Country</span></h5>
+                            <h5>City: <span class="text-uppercase font-italic">@Model.Address.City</span></h5>
+                            <h5>Street: <span class="text-uppercase font-italic">@Model.Address.Street</span></h5>
+                            <h5>Postcode: <span class="text-uppercase font-italic">@Model.Address.PostCode</span></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-holder d-flex justify-content-center my-5">
+                    <a asp-controller="Users" asp-action="Edit" class="btn btn-primary">Edit</a>
+                </div>
+            </div>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+            <table class="table mx-auto table-hover">
+                <thead>
+                    <tr class="row">
+                        <th class="col-md-1">#</th>
+                        <th class="col-md-3">Product ID</th>
+                        <th class="col-md-2">Product Name</th>
+                        <th class="col-md-1">Type</th>
+                        <th class="col-md-2">Price</th>
+                        <th class="col-md-3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var index = 1;
+                        foreach (var item in Model.WishlistedProducts)
+                        {
+                            <tr class="row">
+                                <td class="col-md-1">@(index++)</td>
+                                <td class="col-md-3">@item.ProductId</td>
+                                <td class="col-md-2">@item.ProductName</td>
+                                <td class="col-md-1">@item.ProductType</td>
+                                <td class="col-md-2">$@item.ProductPrice</td>
+                                <td class="col-md-3">
+                                    <div class="button-holder d-flex">
+                                        <div>
+                                            <a asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-success">View</a>
+                                            <a asp-controller="Users" asp-action="RemoveFromWishlist" asp-route-id="@item.ProductId" class="btn btn-danger">Remove</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div id="menu3" class="tab-pane fade">
+            <partial name="~/Views/Shared/_MyOrderPartial.cshtml" model="Model.Orders" />
+        </div>
+    </div>
+</div>

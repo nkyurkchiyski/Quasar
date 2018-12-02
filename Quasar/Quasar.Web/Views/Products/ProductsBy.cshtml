@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Search";
+}
+@model Quasar.Web.Models.Products.QueryProductsViewModel
+
+<h1 class="text-center my-5">@Model.Name</h1>
+
+@if (Model.Products.Any())
+{
+    <partial name="~/Views/Shared/_DisplayProductsPartial.cshtml" model="Model.Products" />
+}
+else
+{
+    <h3 class="text-center">Nothing found :(</h3>
+}

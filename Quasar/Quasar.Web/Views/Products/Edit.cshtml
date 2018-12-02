@@ -1,0 +1,128 @@
+﻿@{
+    @using Quasar.Models.Enums
+
+    ViewData["Title"] = "Edit Product";
+
+    var types = Enum.GetNames(typeof(ProductType)).ToArray();
+    var categories = Enum.GetNames(typeof(Category)).ToArray();
+    var platforms = Enum.GetNames(typeof(Platform)).ToArray();
+}
+
+@model Quasar.Web.Models.Products.EditProductViewModel
+
+<h1 class="text-center">Edit</h1>
+<h4 class="text-center">Product Id: @Model.Id</h4>
+<form class="mx-auto text-left" enctype="multipart/form-data" method="post" asp-controller="Products" asp-action="Edit">
+    <div>
+        <h4>Product Details</h4>
+        <hr />
+        <div class="form-group">
+            <label asp-for="Name">Name</label>
+            <input asp-for="Name" value="@Model.Name" class="form-control" placeholder="Name...">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description">Description</label>
+            <textarea asp-for="Description" value="@Model.Description" rows="6" class="form-control" placeholder="Description..."></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col form-group">
+                <label asp-for="TotalQuantity">Quantity</label>
+                <input asp-for="TotalQuantity" value="@Model.TotalQuantity" type="number" step="1" class="form-control" placeholder="Quantity...">
+                <span asp-validation-for="TotalQuantity" class="text-danger"></span>
+            </div>
+            <div class="col form-group">
+                <label asp-for="Price">Price</label>
+                <input asp-for="Price" value="@Model.Price" type="number" step="0.01" class="form-control" placeholder="Price...">
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col form-group">
+                <label asp-for="Category">Category</label>
+                <select class="form-control" asp-for="Category">
+                    @foreach (var c in categories)
+                    {
+                        <option>@c</option>
+                    }
+                </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="col form-group">
+                <label asp-for="Type">Type</label>
+                <select class="form-control" asp-for="Type">
+                    @foreach (var t in types)
+                    {
+                        <option>@t</option>
+                    }
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="col form-group">
+                <label asp-for="Platform">Platform</label>
+                <select class="form-control" asp-for="Platform">
+                    @foreach (var p in platforms)
+                    {
+                        <option>@p</option>
+                    }
+                </select>
+                <span asp-validation-for="Platform" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h4>Images</h4>
+        <hr />
+        <div class="row">
+            <div class="col form-group">
+                <label asp-for="NewCover">Cover Image</label>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top mini-screenshot" src="@Model.Cover.Path">
+                            <div class="card-body">
+                                <div class="btn-group d-flex justify-content-center">
+                                    <input type="checkbox" asp-for="@Model.Cover.Selected" value="@Model.Cover.Selected" />
+                                    <input type="text" asp-for="@Model.Cover.Path" value="@Model.Cover.Path" hidden />
+                                    <input type="text" asp-for="@Model.Cover.PublicId" value="@Model.Cover.PublicId" hidden />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="file" asp-for="NewCover" />
+            </div>
+            <div class="col form-group">
+                <label asp-for="NewImages">Images</label>
+                <div class="row">
+                    @{
+                        var images = Model.Images.ToArray();
+                        @for (int i = 0; i < images.Length; i++)
+                        {
+                            <div class="col-md-3">
+                                <div class="card mb-4 box-shadow">
+                                    <img class="card-img-top mini-screenshot" src="@images[i].Path">
+                                    <div class="card-body">
+                                        <div class="btn-group d-flex justify-content-center">
+                                            <input type="checkbox" asp-for="@images[i].Selected" value="@images[i].Selected" />
+                                            <input type="text" asp-for="@images[i].Path" value="@images[i].Path" hidden />
+                                            <input type="text" asp-for="@images[i].PublicId" value="@images[i].PublicId" hidden />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <input type="file" asp-for="NewImages" multiple />
+            </div>
+        </div>
+    </div>
+    <div class="button-holder d-flex justify-content-around my-5 px-4">
+        <div>
+            <button type="submit" class="btn btn-warning">Edit</button>
+            <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-default">Cancel</a>
+        </div>
+    </div>
+</form>

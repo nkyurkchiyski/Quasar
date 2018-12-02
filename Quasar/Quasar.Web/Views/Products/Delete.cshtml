@@ -1,0 +1,80 @@
+﻿@{
+
+    ViewData["Title"] = "Delete Product";
+}
+
+@model Quasar.Web.Models.Products.ProductViewModel
+
+<h1 class="text-center">Delete</h1>
+<h4 class="text-center">Product Id: @Model.Id</h4>
+<form class="mx-auto text-left" method="post" asp-controller="Products" asp-action="DeletePost" asp-route-id="@Model.Id">
+    <div>
+        <h4>Product Details</h4>
+        <hr />
+        <div class="form-group">
+            <label asp-for="Name">Name</label>
+            <input asp-for="Name" disabled value="@Model.Name" class="form-control" placeholder="Name...">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description">Description</label>
+            <textarea asp-for="Description" disabled value="@Model.Description" rows="6" class="form-control" placeholder="Description..."></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col form-group">
+                <label asp-for="TotalQuantity">Quantity</label>
+                <input asp-for="TotalQuantity" disabled value="@Model.TotalQuantity" type="number" step="1" class="form-control" placeholder="Quantity...">
+                <span asp-validation-for="TotalQuantity" class="text-danger"></span>
+            </div>
+            <div class="col form-group">
+                <label asp-for="Price">Price</label>
+                <input asp-for="Price" value="@Model.Price" disabled type="number" step="0.01" class="form-control" placeholder="Price...">
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col form-group">
+                <label asp-for="Category">Category</label>
+                <select class="form-control" disabled asp-for="Category">
+                    <option>@Model.Category</option>
+                </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="col form-group">
+                <label asp-for="Type">Type</label>
+                <select class="form-control" disabled asp-for="Type">
+                    <option>@Model.Type</option>
+                </select>
+                <span asp-validation-for="Type" disabled class="text-danger"></span>
+            </div>
+            <div class="col form-group">
+                <label asp-for="Platform">Platform</label>
+                <select class="form-control" disabled asp-for="Platform">
+                    <option>@Model.Platform</option>
+                </select>
+                <span asp-validation-for="Platform" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h4>Images</h4>
+        <hr />
+        <div class="row">
+            <div class="col form-group">
+                <label>Cover Image</label>
+                <input type="file" disabled />
+            </div>
+            <div class="col form-group">
+                <label>Images</label>
+                <input type="file" multiple disabled />
+            </div>
+        </div>
+    </div>
+    <div class="button-holder d-flex justify-content-around my-5 px-4">
+        <div>
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-default">Cancel</a>
+        </div>
+    </div>
+</form>

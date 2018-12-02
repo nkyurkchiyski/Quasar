@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "External Login";
+}
+@model Quasar.Web.Models.Users.ExternalLoginViewModel
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<h2 class="text-center">Associate your @ViewData["LoginProvider"] account.</h2>
+
+<form class="mx-auto" asp-action="ExternalLoginConfirmation" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-row d-flex justify-content-between my-3">
+        <div class="form-colmn col-md-12 d-flex flex-column align-items-center">
+            <p class="text-left">
+                You've successfully authenticated with <strong>@ViewData["LoginProvider"]</strong>.
+                Please enter an email address for this site below and click the Register button to finish
+                logging in.
+            </p>
+        </div>
+    </div>
+    <div class="my-3">
+        <h4 class="text-left">Personal Details</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label asp-for="Email">Email</label>
+                <input required asp-for="Email" class="form-control" placeholder="Email...">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div>
+            <h4 class="text-left">Address Information</h4>
+            <hr />
+            <div class="row">
+                <div class="col form-group">
+                    <label asp-for="Country"></label>
+                    <input required asp-for="Country" class="form-control" placeholder="Country...">
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+                <div class="col form-group">
+                    <label asp-for="City"></label>
+                    <input required asp-for="City" class="form-control" placeholder="City...">
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col form-group">
+                    <label asp-for="Street"></label>
+                    <input required asp-for="Street" class="form-control" placeholder="Street...">
+                    <span asp-validation-for="Street" class="text-danger"></span>
+                </div>
+                <div class="col form-group">
+                    <label asp-for="PostCode"></label>
+                    <input required asp-for="PostCode" class="form-control" placeholder="Postcode...">
+                    <span asp-validation-for="PostCode" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="button-holder d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">Register</button>
+    </div>
+</form>

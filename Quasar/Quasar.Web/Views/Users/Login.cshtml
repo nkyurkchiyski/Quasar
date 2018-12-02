@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+@model Quasar.Web.Models.Users.LoginUserViewModel
+@inject IAuthenticationSchemeProvider SchemeProvider
+@using Microsoft.AspNetCore.Authentication
+
+<h1 class="text-center">Login</h1>
+<form class="mx-auto text-center half-width my-5" method="post" asp-controller="Users" asp-action="Login">
+    <div class="form-group">
+        <label asp-for="Username" class="font-weight-bold">Username</label>
+        <input asp-for="Username" class="form-control" placeholder="Username...">
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="font-weight-bold">Password</label>
+        <input asp-for="Password" class="form-control" placeholder="Password...">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="text-center">
+        <input type="checkbox" asp-for="RememberMe">
+        <label asp-for="RememberMe">Remember me?</label>
+    </div>
+    <div class="button-holder d-flex justify-content-center my-5">
+        <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+    <div class="mb-5">
+        <a class="navbar-link" asp-controller="Users" asp-action="Register">Register as new user</a>
+    </div>
+</form>
+<div class="button-holder  d-flex justify-content-center">
+    <form asp-action="ExternalLogin" asp-route-returnurl="@Context.Request.Query["returnUrl"]" method="post" class="form-horizontal">
+        <div>
+            <p>
+                @foreach (var provider in await SchemeProvider.GetRequestHandlerSchemesAsync())
+                {
+                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.Name</button>
+                }
+            </p>
+        </div>
+    </form>
+</div>

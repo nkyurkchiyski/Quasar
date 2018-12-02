@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+@model Quasar.Web.Models.Users.EditUserViewModel
+
+
+<h1 class="text-center">Edit Profile: @Model.UserName</h1>
+<form class="mx-auto text-left" method="post" asp-controller="Users" asp-action="Edit">
+    <div class="row">
+        <div class="col">
+            <h4 class="text-left">Personal Details</h4>
+            <hr />
+            <input asp-for="UserName" type="hidden" value="@Model.UserName" />
+            <div class="form-group">
+                <label asp-for="FirstName">First name</label>
+                <input asp-for="FirstName" class="form-control" value="@Model.FirstName">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName">Last name</label>
+                <input asp-for="LastName" class="form-control" value="@Model.LastName">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email">Email</label>
+                <input required asp-for="Email" class="form-control" value="@Model.Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <h4 class="text-left">Address Information</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Address.Country">Country</label>
+                <input required asp-for="Address.Country" class="form-control" value="@Model.Address.Country">
+                <span asp-validation-for="Address.Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.City">City</label>
+                <input required asp-for="Address.City" class="form-control" value="@Model.Address.City">
+                <span asp-validation-for="Address.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.Street">Street</label>
+                <input required asp-for="Address.Street" class="form-control" value="@Model.Address.Street">
+                <span asp-validation-for="Address.Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.PostCode">Postcode</label>
+                <input required asp-for="Address.PostCode" class="form-control" value="@Model.Address.PostCode">
+                <span asp-validation-for="Address.PostCode" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="button-holder d-flex justify-content-around my-5 px-4">
+        <div>
+            <button type="submit" class="btn btn-primary">Confirm</button>
+            <a asp-controller="Users" asp-action="Details" class="btn btn-default">Cancel</a>
+        </div>
+    </div>
+</form>

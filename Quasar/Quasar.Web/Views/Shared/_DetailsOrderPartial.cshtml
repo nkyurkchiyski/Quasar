@@ -1,0 +1,54 @@
+﻿@model Quasar.Web.Models.Orders.OrderViewModel
+
+<table class="table mx-auto table-hover">
+    <thead>
+        <tr class="row">
+            <th class="col-md-1">#</th>
+            <th class="col-md-2">Product ID</th>
+            <th class="col-md-1">Cover</th>
+            <th class="col-md-2">Product Name</th>
+            <th class="col-md-1">Quantity</th>
+            <th class="col-md-1">Price</th>
+            <th class="col-md-4 text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var index = 1;
+            foreach (var item in Model.Products)
+            {
+                <tr class="row">
+                    <td class="col-md-1">@(index++)</td>
+                    <td class="col-md-2">@item.Id</td>
+                    <td class="col-md-1">
+                        <img class="mini-cover" src="@item.Cover" />
+                    </td>
+                    <td class="col-md-2">@item.Name</td>
+                    <td class="col-md-1">@item.Quantity</td>
+                    <td class="col-md-1">$@item.Price</td>
+                    <td class="col-md-4">
+                        <div class="button-holder d-flex justify-content-center">
+                            <div>
+                                @if (Model.OrderStatus == "AwaitingUser")
+                                {
+                                    <form class="form-inline" method="get" asp-controller="Orders" asp-action="Update">
+                                        <input type="text" asp-for="@item.Id" hidden />
+                                        <input class="form-control w-25 mr-sm-2" type="number" step="1" asp-for="@item.Quantity" value="@item.Quantity" />
+                                        <span asp-validation-for="@item.Quantity" class="text-danger"></span>
+                                        <button type="submit" class="btn btn-warning mr-sm-2">Update</button>
+                                        <a asp-controller="Orders" asp-action="RemoveProduct" asp-route-id="@item.Id" class="btn btn-danger">Remove</a>
+                                    </form>
+
+                                }
+                                else
+                                {
+                                    <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                                }
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

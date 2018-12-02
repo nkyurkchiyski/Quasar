@@ -1,0 +1,15 @@
+﻿@model Quasar.Web.Models.Products.DisplayProductViewModel
+
+<div class="card mb-4 box-shadow ">
+    <img class="card-img-top big-cover" src="@Model.Cover">
+    <div class="card-body">
+        <p class="card-text">@Model.Name |<span class="text-uppercase text-muted"> @Model.Platform</span></p>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-success">View</a>
+                <a asp-controller="Orders" asp-action="AddProduct" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-primary">Buy</a>
+                <a asp-controller="Users" asp-action="AddToWishlist" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-danger glyphicon">&#xe143;</a>
+            </div>
+        </div>
+    </div>
+</div>

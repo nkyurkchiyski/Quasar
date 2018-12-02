@@ -1,0 +1,225 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    padding-bottom: 20px;
+    background-color: #F9F9F9;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+.bg-dark-light {
+    background: #323232 !important;
+}
+
+.bg-theme, .bg-dark, .bg-dark-light, .bg-secondary {
+    color: #ffffff;
+}
+
+.widgets.footer-widgets .widget-title {
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+    .widgets.footer-widgets .widget-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 2px;
+        width: 100px;
+    }
+
+.widgets.footer-widgets .widget-quick-links ul {
+    margin-top: -4px;
+}
+
+.widgets.footer-widgets .single-widget ul {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.widgets.footer-widgets .widget-quick-links ul li {
+    display: block;
+}
+
+    .widgets.footer-widgets .widget-quick-links ul li a {
+        display: block;
+        font-size: 13px;
+        color: #ffffff;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 9px 0;
+    }
+
+.widgets.footer-widgets .single-widget ul li {
+    list-style: none;
+}
+
+.widgets.footer-widgets .widget-contact ul li {
+    color: #000;
+    font-size: 13px;
+    color: #ffffff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+    .widgets.footer-widgets .widget-contact ul li span {
+        font-size: 14px;
+        color: #ffffff;
+        border: 2px solid #cccccc;
+        border-radius: 3px;
+        height: 32px;
+        width: 32px;
+        display: inline-block;
+        line-height: 28px;
+        text-align: center;
+        margin-right: 20px;
+    }
+
+.widgets.footer-widgets .widget-contact ul .phone, .widgets.footer-widgets .widget-contact ul .fax {
+    font-size: 15px;
+}
+
+.widgets.footer-widgets .widget-contact ul li + li {
+    margin-top: 20px;
+}
+
+.hr-dotted {
+    border-top: 4px dotted #ffffff;
+    width: 97%;
+}
+
+.rounded {
+    border-radius: 4px
+}
+
+.container-padding {
+    padding: 10px 0;
+}
+
+.top-bar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.search-box {
+    padding-top: 3px;
+}
+
+p {
+    margin: 0;
+}
+
+.half-width {
+    margin: auto;
+    width: 50%;
+}
+
+.table {
+    max-width: 97%;
+}
+
+.screenshot {
+    height: 70px;
+    width: 100%;
+    display: block;
+}
+
+.cover {
+    object-fit: contain;
+    height: 450px;
+}
+
+.mini-cover {
+    object-fit: contain;
+    height: 50px;
+}
+
+.big-cover {
+    object-fit: contain;
+    height: 250px;
+    margin-top: 2rem;
+}
+
+.mini-screenshot {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.img-banner {
+    object-fit: contain;
+    height: 1440px;
+}
+
+.text-quasar {
+    color: #CD7B70;
+}
+
+    .text-quasar:hover {
+        color: #e28a7e;
+    }
+
+    .text-quasar:active {
+        color: #eb9184;
+    }
+
+.bg-quasar {
+    background-color: #CD7B70;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #CD7B70;
+}
+
+    .navbar-dark .navbar-nav .nav-link:active {
+        color: #eb9184;
+    }
+
+    .navbar-dark .navbar-nav .nav-link:hover {
+        color: #e28a7e;
+    }
+
+.navbar-dark .navbar-nav .show > .nav-link {
+    color: #ffaea2;
+}
+
+.dropdown-item:active {
+    background-color: #CD7B70;
+}

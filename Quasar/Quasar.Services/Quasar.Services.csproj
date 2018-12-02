@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="automapper" Version="8.0.0" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Quasar.Data\Quasar.Data.csproj" />
+    <ProjectReference Include="..\Quasar.Models\Quasar.Models.csproj" />
+  </ItemGroup>
+
+</Project>
