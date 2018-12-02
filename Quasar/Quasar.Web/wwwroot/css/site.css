@@ -204,6 +204,16 @@ p {
     background-color: #CD7B70;
 }
 
+    .bg-quasar:active {
+        background-color: #eb9184;
+    }
+
+    .bg-quasar:hover {
+        background-color: #ad675e;
+    }
+
+
+
 .navbar-dark .navbar-nav .nav-link {
     color: #CD7B70;
 }

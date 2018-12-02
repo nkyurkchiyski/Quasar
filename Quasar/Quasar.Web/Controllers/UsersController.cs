@@ -109,14 +109,14 @@ namespace Quasar.Web.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Edit(EditUserViewModel model)
+        public async Task<IActionResult> Edit(EditUserViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var editOutcome = this.usersService.Edit(
+            var editOutcome = await this.usersService.Edit(
                 model.UserName,
                 model.Email,
                 model.FirstName,
@@ -126,12 +126,12 @@ namespace Quasar.Web.Controllers
                 model.Address.Street,
                 model.Address.PostCode);
 
-            if (!editOutcome.Result)
+            if (!editOutcome)
             {
                 return View(model);
             }
 
-            return RedirectToAction("Details");
+            return RedirectToAction(nameof(Details));
         }
 
         [Authorize]
@@ -203,7 +203,7 @@ namespace Quasar.Web.Controllers
             {
                 return this.Redirect("/");
             }
-            
+
             if (result.IsLockedOut)
             {
                 return RedirectToAction(nameof(Lockout));
@@ -232,7 +232,7 @@ namespace Quasar.Web.Controllers
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
-                
+
                 var result = await this.usersService
                     .ExternalLoginConfirmation(
                         info,
@@ -252,7 +252,7 @@ namespace Quasar.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View(nameof(ExternalLogin), model);
         }
-        
+
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))

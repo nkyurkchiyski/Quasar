@@ -1,19 +1,20 @@
-﻿@model ICollection<Quasar.Web.Models.Products.DisplayProductViewModel>
+﻿@using Quasar.Web.Utils
+@model ICollection<Quasar.Web.Models.Products.DisplayProductViewModel>
 
 <div class="row d-flex justify-content-around mt-3">
     @{
-                    var products = Model.ToArray();
+        var products = Model.ToArray();
         @for (int i = 0; i < products.Length; i++)
-                    {
-                        var pr = products[i];
+        {
+            var pr = products[i];
 
-                        if (i % 4 == 0 && i != 0)
-                        {
-        @Html.Raw(@"</div><div class=""row d-flex justify-content-around mt-3"">");
-                        }
-        <div class="col-md-3">
-            <partial name="~/Views/Shared/_ProductPartial.cshtml" model="pr" />
-        </div>
-                    }
+            if (i % 4 == 0 && i != 0)
+            {
+                @Html.Raw(@"</div><div class=""row d-flex justify-content-around mt-3"">");
+            }
+            <div class="col-md-3">
+                <partial name="~/Views/Shared/_ProductPartial.cshtml" model="pr" />
+            </div>
+        }
     }
 </div>

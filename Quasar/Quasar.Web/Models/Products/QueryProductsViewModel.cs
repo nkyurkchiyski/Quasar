@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using Quasar.Web.Utils;
 
 namespace Quasar.Web.Models.Products
 {
@@ -6,6 +6,6 @@ namespace Quasar.Web.Models.Products
     {
         public string Name { get; set; }
 
-        public ICollection<DisplayProductViewModel> Products { get; set; }
+        public PaginatedList<DisplayProductViewModel> Products { get; set; }
     }
 }

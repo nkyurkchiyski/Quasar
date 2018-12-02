@@ -115,9 +115,13 @@ namespace Quasar.Services
                 PostCode = postCode
             };
 
-            user.Address = this.CreateOrGetAddress(address);
+            var newAddress = await this.CreateOrGetAddressAsync(address);
+
+            user.AddressId = newAddress.Id;
 
             var upadateResult = await this.userManager.UpdateAsync(user);
+
+            await this.context.SaveChangesAsync();
 
             return upadateResult.Succeeded;
         }
@@ -198,7 +202,7 @@ namespace Quasar.Services
                 PostCode = postCode
             };
 
-            user.Address = this.CreateOrGetAddress(address);
+            user.Address = await this.CreateOrGetAddressAsync(address);
 
             var userCreateResult = await this.userManager.CreateAsync(user, password);
 
@@ -219,20 +223,19 @@ namespace Quasar.Services
             return true;
         }
 
-        private Address CreateOrGetAddress(Address userAddress)
+        private async Task<Address> CreateOrGetAddressAsync(Address userAddress)
         {
-            var address = this.context.Addresses
-                .FirstOrDefault(x => x.Country == userAddress.Country &&
+            var address = await this.context.Addresses
+                .FirstOrDefaultAsync(x => x.Country == userAddress.Country &&
                                      x.Street == userAddress.Street &&
                                      x.PostCode == userAddress.PostCode &&
                                      x.City == userAddress.City);
             if (address == null)
             {
                 this.context.Addresses.Add(userAddress);
-                this.context.SaveChangesAsync();
+                await this.context.SaveChangesAsync();
             }
-
-            return address;
+            return userAddress;
 
         }
 

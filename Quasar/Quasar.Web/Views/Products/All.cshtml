@@ -1,7 +1,9 @@
 ﻿@{
     ViewData["Title"] = "All Products";
+
+    @using Quasar.Web.Utils
+    @model PaginatedList<Quasar.Web.Models.Products.ProductViewModel>
 }
-@model ICollection<Quasar.Web.Models.Products.ProductViewModel>
 
 <h1 class="text-center">All Products</h1>
 <table class="table mx-auto table-hover">
@@ -19,7 +21,7 @@
     </thead>
     <tbody>
         @{
-            var index = 1;
+            var index = (Model.PageIndex - 1) * Model.PageSize + 1;
             foreach (var item in Model)
             {
                 <tr class="row">
@@ -44,3 +46,23 @@
         }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<div class="btn-group d-flex justify-content-center">
+    <a asp-controller="Products"
+       asp-action="All"
+       asp-route-pageIndex="@(Model.PageIndex - 1)"
+       class="btn text-white btn-dark @prevDisabled">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a asp-controller="Products"
+       asp-action="All"
+       asp-route-pageIndex="@(Model.PageIndex + 1)"
+       class="btn text-white btn-dark @nextDisabled">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>

@@ -1,13 +1,31 @@
 ﻿@{
     ViewData["Title"] = "Search";
-}
-@model Quasar.Web.Models.Products.QueryProductsViewModel
 
+    @model Quasar.Web.Models.Products.QueryProductsViewModel
+}
 <h1 class="text-center my-5">@Model.Name</h1>
 
 @if (Model.Products.Any())
 {
-    <partial name="~/Views/Shared/_DisplayProductsPartial.cshtml" model="Model.Products" />
+    <partial name="~/Views/Shared/_DisplayPaginatedProductsPartial.cshtml" model="Model.Products" />
+
+    var prevDisabled = !Model.Products.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Products.HasNextPage ? "disabled" : "";
+
+    <div class="btn-group d-flex justify-content-center">
+        <a asp-controller="Products"
+           asp-action="ProductsBy"
+           asp-route-pageIndex="@(Model.Products.PageIndex - 1)"
+           class="btn text-white btn-dark @prevDisabled">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a asp-controller="Products"
+           asp-action="ProductsBy"
+           asp-route-pageIndex="@(Model.Products.PageIndex + 1)"
+           class="btn text-white btn-dark @nextDisabled">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
 }
 else
 {

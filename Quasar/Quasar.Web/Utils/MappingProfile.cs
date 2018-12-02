@@ -76,6 +76,9 @@ namespace Quasar.Web.Utils
                p => p.Platform,
                opt => opt.MapFrom(src => src.Platform.ToString()));
 
+            CreateMap<Order, OrderViewModel>()
+                .ForPath(e => e.PaginatedProducts, opt => opt.Ignore());
+
 
         }
     }

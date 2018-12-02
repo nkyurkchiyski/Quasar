@@ -8,6 +8,7 @@ using Quasar.Models;
 using Quasar.Models.Enums;
 using Quasar.Services.Contracts;
 using Quasar.Web.Models.Products;
+using Quasar.Web.Utils;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -49,12 +50,19 @@ namespace Quasar.Web.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int? pageIndex)
         {
             var products = await this.productsService
                 .All<ProductViewModel>();
 
-            return View(products);
+            int pageSize = 6;
+            
+            var paginatedProducts = PaginatedList<ProductViewModel>.Create(
+                products,
+                pageIndex ?? 1,
+                pageSize);
+
+            return View(paginatedProducts);
         }
 
         public async Task<IActionResult> Details(Guid id)
@@ -138,7 +146,7 @@ namespace Quasar.Web.Controllers
         }
 
         [Route("Products/ProductsBy/{queryType}/{queryValue}")]
-        public IActionResult ProductsBy(string queryType, string queryValue)
+        public IActionResult ProductsBy(string queryType, string queryValue, int? pageIndex)
         {
             var products = this.productsService
                 .GetProducts<DisplayProductViewModel>(queryType, queryValue);
@@ -148,10 +156,17 @@ namespace Quasar.Web.Controllers
                 return Redirect("/");
             }
 
+            int pageSize = 12;
+
+            var paginatedProducts = PaginatedList<DisplayProductViewModel>.Create(
+                products,
+                pageIndex ?? 1,
+                pageSize);
+
             var queryProductsViewModel = new QueryProductsViewModel
             {
                 Name = $"{queryType}: '{queryValue}'",
-                Products = products
+                Products = paginatedProducts
             };
 
             return this.View(queryProductsViewModel);

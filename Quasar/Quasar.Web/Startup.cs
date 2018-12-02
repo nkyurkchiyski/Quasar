@@ -35,6 +35,8 @@ namespace Quasar.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddScoped<SignInManager<User>, SignInManager<User>>();
+
             services.AddDbContext<QuasarDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -70,6 +72,7 @@ namespace Quasar.Web
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IProductsService, ProductsService>();
             services.AddTransient<IOrdersService, OrdersService>();
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

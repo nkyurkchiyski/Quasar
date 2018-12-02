@@ -11,7 +11,27 @@
     </div>
     <partial name="~/Views/Shared/_DetailsOrderPartial.cshtml" model="Model" />
 
-    <div class="d-flex justify-content-center">
+
+    var prevDisabled = !Model.PaginatedProducts.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.PaginatedProducts.HasNextPage ? "disabled" : "";
+
+
+    <div class="btn-group d-flex justify-content-center">
+        <a asp-controller="Orders"
+           asp-action="ShoppingCart"
+           asp-route-pageIndex="@(Model.PaginatedProducts.PageIndex - 1)"
+           class="btn text-white btn-dark @prevDisabled">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a asp-controller="Orders"
+           asp-action="ShoppingCart"
+           asp-route-pageIndex="@(Model.PaginatedProducts.PageIndex + 1)"
+           class="btn text-white btn-dark @nextDisabled">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+
+    <div class="d-flex justify-content-center my-4">
         <a asp-controller="Orders" asp-action="Order" asp-route-id="@Model.Id" class="btn btn-success">Order</a>
     </div>
 }

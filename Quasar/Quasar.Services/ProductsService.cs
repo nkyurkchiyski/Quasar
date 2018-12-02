@@ -120,7 +120,7 @@ namespace Quasar.Services
             this.context.Images.RemoveRange(imagesToRemove);
             this.context.SaveChanges();
         }
-        
+
         public async Task<bool> Create(string name,
             string description,
             int totalQuantity,

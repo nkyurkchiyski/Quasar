@@ -14,8 +14,8 @@
     </thead>
     <tbody>
         @{
-            var index = 1;
-            foreach (var item in Model.Products)
+            var index = (Model.PaginatedProducts.PageIndex - 1) * Model.PaginatedProducts.PageSize + 1;
+            foreach (var item in Model.PaginatedProducts)
             {
                 <tr class="row">
                     <td class="col-md-1">@(index++)</td>
@@ -52,3 +52,4 @@
         }
     </tbody>
 </table>
+

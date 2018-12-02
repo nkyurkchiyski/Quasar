@@ -1,12 +1,41 @@
 ﻿@{
     @model Quasar.Web.Models.Orders.OrderViewModel
     ViewData["Title"] = $"Details Order";
+
 }
 
 <h1 class="text-center">Your Order From: @(!Model.OrderedOn.HasValue ? "N/A" : Model.OrderedOn.Value.ToString())</h1>
 <h4 class="text-center">Order Id: @Model.Id</h4>
-<h3 class="col-md-11">Products:</h3>
-<partial name="~/Views/Shared/_DetailsOrderPartial.cshtml" model="Model" />
+<h3>Products:</h3>
+
+@if (Model.PaginatedProducts != null && Model.Products.Count > 0)
+{
+    <partial name="~/Views/Shared/_DetailsOrderPartial.cshtml" model="Model" />
+
+
+    var prevDisabled = !Model.PaginatedProducts.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.PaginatedProducts.HasNextPage ? "disabled" : "";
+
+
+    <div class="btn-group d-flex justify-content-center">
+        <a asp-controller="Orders"
+           asp-action="Details"
+           asp-route-pageIndex="@(Model.PaginatedProducts.PageIndex - 1)"
+           class="btn text-white btn-dark @prevDisabled">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a asp-controller="Orders"
+           asp-action="Details"
+           asp-route-pageIndex="@(Model.PaginatedProducts.PageIndex + 1)"
+           class="btn text-white btn-dark @nextDisabled">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+}
+else
+{
+    <h3 class="text-center">The list is empty :(</h3>
+}
 <hr />
 <h3 class="text-right">Total Price: $@Model.TotalPrice</h3>
 

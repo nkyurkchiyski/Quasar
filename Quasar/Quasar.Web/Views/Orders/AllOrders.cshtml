@@ -1,6 +1,30 @@
 ﻿@{
     ViewData["Title"] = "All Orders";
+
+    @using Quasar.Web.Utils
+    @model PaginatedList<Quasar.Web.Models.Orders.OrderViewModel>
 }
-@model ICollection<Quasar.Web.Models.Orders.OrderViewModel>
 
 <partial name="~/Views/Shared/_OrderPartial.cshtml" model="Model" />
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+
+
+    <div class="btn-group d-flex justify-content-center">
+        <a asp-controller="Orders"
+           asp-action="AllOrders"
+           asp-route-pageIndex="@(Model.PageIndex - 1)"
+           class="btn text-white btn-dark @prevDisabled">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a asp-controller="Orders"
+           asp-action="AllOrders"
+           asp-route-pageIndex="@(Model.PageIndex + 1)"
+           class="btn text-white btn-dark @nextDisabled">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+
+}

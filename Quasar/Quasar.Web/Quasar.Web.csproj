@@ -41,6 +41,9 @@
     <Content Update="Views\Shared\_DetailsOrderPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Shared\_DisplayPaginatedProductsPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\_DisplayProductsPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

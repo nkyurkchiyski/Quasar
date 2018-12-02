@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Quasar.Services.Contracts;
 using Quasar.Web.Models.Orders;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Quasar.Web.Utils;
 
 namespace Quasar.Web.Controllers
 {
@@ -58,10 +55,22 @@ namespace Quasar.Web.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> ShoppingCart()
+        public async Task<IActionResult> ShoppingCart(int? pageIndex)
         {
             var shoppingCart = await this.ordersService
                 .GetShoppingCart<OrderViewModel>(this.User.Identity.Name);
+
+            if (shoppingCart != null)
+            {
+                int pageSize = 6;
+
+                var paginatedProducts = PaginatedList<OrderProductViewModel>.Create(
+                    shoppingCart.Products,
+                    pageIndex ?? 1,
+                    pageSize);
+
+                shoppingCart.PaginatedProducts = paginatedProducts;
+            }
 
             return this.View(shoppingCart);
         }
@@ -81,7 +90,7 @@ namespace Quasar.Web.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AllOrders()
+        public async Task<IActionResult> AllOrders(int? pageIndex)
         {
             var orders = await this.ordersService
                 .All<OrderViewModel>();
@@ -91,7 +100,14 @@ namespace Quasar.Web.Controllers
                 return Redirect("/");
             }
 
-            return this.View(orders);
+            int pageSize = 6;
+
+            var paginatedOrders = PaginatedList<OrderViewModel>.Create(
+                orders,
+                pageIndex ?? 1,
+                pageSize);
+
+            return this.View(paginatedOrders);
         }
 
         [Authorize(Roles = "Admin")]
@@ -171,10 +187,24 @@ namespace Quasar.Web.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> Details(Guid id, int? pageIndex)
         {
             var order = await this.ordersService
                 .Details<OrderViewModel>(id);
+
+            if (order == null)
+            {
+                return Redirect("/");
+            }
+
+            int pageSize = 6;
+
+            var paginatedProducts = PaginatedList<OrderProductViewModel>.Create(
+                order.Products,
+                pageIndex ?? 1,
+                pageSize);
+
+            order.PaginatedProducts = paginatedProducts;
 
             return this.View(order);
         }
