@@ -6,63 +6,70 @@
 }
 
 <h1 class="text-center">All Products</h1>
-<table class="table mx-auto table-hover">
-    <thead>
-        <tr class="row">
-            <th class="col-md-1">#</th>
-            <th class="col-md-2">Product ID</th>
-            <th class="col-md-2">Product Name</th>
-            <th class="col-md-1">Type</th>
-            <th class="col-md-1">Platform</th>
-            <th class="col-md-1">Total Quantity</th>
-            <th class="col-md-1">Price</th>
-            <th class="col-md-3">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            var index = (Model.PageIndex - 1) * Model.PageSize + 1;
-            foreach (var item in Model)
-            {
-                <tr class="row">
-                    <td class="col-md-1">@(index++)</td>
-                    <td class="col-md-2">@item.Id</td>
-                    <td class="col-md-2">@item.Name</td>
-                    <td class="col-md-1">@item.Type</td>
-                    <td class="col-md-1">@item.Platform</td>
-                    <td class="col-md-1">@item.TotalQuantity</td>
-                    <td class="col-md-1">$@item.Price</td>
-                    <td class="col-md-3">
-                        <div class="button-holder d-flex">
-                            <div>
-                                <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
-                                <a asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-                                <a asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+@if (Model != null && Model.Any())
+{
+    <table class="table mx-auto table-hover">
+        <thead>
+            <tr class="row">
+                <th class="col-md-1">#</th>
+                <th class="col-md-2">Product ID</th>
+                <th class="col-md-2">Product Name</th>
+                <th class="col-md-1">Type</th>
+                <th class="col-md-1">Platform</th>
+                <th class="col-md-1">Total Quantity</th>
+                <th class="col-md-1">Price</th>
+                <th class="col-md-3">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var index = (Model.PageIndex - 1) * Model.PageSize + 1;
+                foreach (var item in Model)
+                {
+                    <tr class="row">
+                        <td class="col-md-1">@(index++)</td>
+                        <td class="col-md-2">@item.Id</td>
+                        <td class="col-md-2">@item.Name</td>
+                        <td class="col-md-1">@item.Type</td>
+                        <td class="col-md-1">@item.Platform</td>
+                        <td class="col-md-1">@item.TotalQuantity</td>
+                        <td class="col-md-1">$@item.Price</td>
+                        <td class="col-md-3">
+                            <div class="button-holder d-flex">
+                                <div>
+                                    <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                                    <a asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-@{
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-}
 
-<div class="btn-group d-flex justify-content-center">
-    <a asp-controller="Products"
-       asp-action="All"
-       asp-route-pageIndex="@(Model.PageIndex - 1)"
-       class="btn text-white btn-dark @prevDisabled">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
-    <a asp-controller="Products"
-       asp-action="All"
-       asp-route-pageIndex="@(Model.PageIndex + 1)"
-       class="btn text-white btn-dark @nextDisabled">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-    </a>
-</div>
+
+    <div class="btn-group d-flex justify-content-center">
+        <a asp-controller="Products"
+           asp-action="All"
+           asp-route-pageIndex="@(Model.PageIndex - 1)"
+           class="btn text-white btn-dark @prevDisabled">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a asp-controller="Products"
+           asp-action="All"
+           asp-route-pageIndex="@(Model.PageIndex + 1)"
+           class="btn text-white btn-dark @nextDisabled">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+}
+else
+{
+    <h3 class="text-center">There are no products :(</h3>
+
+}
